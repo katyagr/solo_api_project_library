@@ -23,6 +23,12 @@ public class BookController {
         return ResponseEntity.ok().body(books);
     }
 
+    @GetMapping("books/{author_id}")
+    public ResponseEntity<List<Book>> getByAuthorId(@PathVariable("author_id") Long authorId){
+        List<Book> books = bookRepository.findByAuthorId(authorId);
+        return ResponseEntity.ok().body(books);
+    }
+
     @PostMapping("/books")
     public ResponseEntity<Book> addBook(@RequestBody Book book){
         Book newBook = bookRepository.save(book);
