@@ -1,6 +1,7 @@
 package com.example.library_data.controller;
 
 import com.example.library_data.model.Author;
+import com.example.library_data.model.Book;
 import com.example.library_data.repository.AuthorRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +38,11 @@ public class AuthorController {
                 .orElseGet(() -> {return authorRepository.save(author);});
         return ResponseEntity.ok().body(update);
 
+    }
+
+    @DeleteMapping("authors/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long id){
+        authorRepository.getById(id);
+        return ResponseEntity.ok("Author with id " + id + " has been removed from database.");
     }
 }

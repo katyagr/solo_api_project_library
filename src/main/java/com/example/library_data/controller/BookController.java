@@ -2,6 +2,7 @@ package com.example.library_data.controller;
 
 import com.example.library_data.model.Book;
 import com.example.library_data.repository.BookRepository;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,11 @@ public class BookController {
                 .orElseGet(() -> {return bookRepository.save(book);});
         return ResponseEntity.ok().body(update);
 
+    }
+
+    @DeleteMapping("books/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable Long id){
+        bookRepository.getById(id);
+        return ResponseEntity.ok("Book with id " + id + " has been removed from database.");
     }
 }
