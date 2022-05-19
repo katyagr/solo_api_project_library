@@ -23,6 +23,12 @@ public class AuthorController {
         return ResponseEntity.ok().body(authors);
     }
 
+    @GetMapping("authors/{author_surname}")
+    public ResponseEntity<List<String>> getByAuthorId(@PathVariable("author_surname") String lastName){
+        List<String> books = authorRepository.findByAuthorSurname(lastName);
+        return ResponseEntity.ok().body(books);
+    }
+
     @PostMapping("/authors")
     public ResponseEntity<Author> addAuthor(@RequestBody Author author){
         Author newAuthor = authorRepository.save(author);
