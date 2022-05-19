@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface AuthorRepository extends JpaRepository<Author, Long> {
     @Query(value = "SELECT book.title AS title, book.genre AS genre FROM author JOIN book ON (author.id = book.author_id) WHERE LOWER(author.last_name) = LOWER(:last_name)", nativeQuery = true)
-    List<String> findByAuthorSurname(@Param("last_name") String lastName);
+    List<List<String>> findByAuthorSurname(@Param("last_name") String lastName);
+
 }

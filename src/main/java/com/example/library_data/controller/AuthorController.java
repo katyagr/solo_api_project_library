@@ -24,8 +24,8 @@ public class AuthorController {
     }
 
     @GetMapping("authors/{author_surname}")
-    public ResponseEntity<List<String>> getByAuthorId(@PathVariable("author_surname") String lastName){
-        List<String> books = authorRepository.findByAuthorSurname(lastName);
+    public ResponseEntity<List<List<String>>> getByAuthorId(@PathVariable("author_surname") String lastName){
+        List<List<String>> books = authorRepository.findByAuthorSurname(lastName);
         return ResponseEntity.ok().body(books);
     }
 
