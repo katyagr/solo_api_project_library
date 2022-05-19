@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
-    @Query(value = "SELECT * FROM book WHERE author_id = :authorId", nativeQuery = true)
-    List<Book> findByAuthorId(@Param("authorId") Long authorId);
-    
+    @Query(value = "SELECT * FROM book WHERE LOWER(genre) LIKE LOWER(CONCAT('%',:genre,'%'))", nativeQuery = true)
+    List<Book> findByGenre(@Param("genre") String genre);
+
 
 }

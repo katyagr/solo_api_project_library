@@ -23,9 +23,9 @@ public class BookController {
         return ResponseEntity.ok().body(books);
     }
 
-    @GetMapping("books/{author_id}")
-    public ResponseEntity<List<Book>> getByAuthorId(@PathVariable("author_id") Long authorId){
-        List<Book> books = bookRepository.findByAuthorId(authorId);
+    @GetMapping("books/{genre}")
+    public ResponseEntity<List<Book>> getByAuthorId(@PathVariable("genre") String genre){
+        List<Book> books = bookRepository.findByGenre(genre);
         return ResponseEntity.ok().body(books);
     }
 
