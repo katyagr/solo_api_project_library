@@ -3,10 +3,7 @@ package com.example.library_data.controller;
 import com.example.library_data.model.Author;
 import com.example.library_data.repository.AuthorRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +26,16 @@ public class AuthorController {
     public ResponseEntity<Author> addAuthor(@RequestBody Author author){
         Author newAuthor = authorRepository.save(author);
         return ResponseEntity.ok().body(newAuthor);
+    }
+
+    @PutMapping("authors/{id}")
+    public ResponseEntity<Author> updateAuthor(@RequestBody Author author, @PathVariable Long id){
+        Author update = authorRepository.findById(id).map(updatedAuthor -> {
+                    updatedAuthor.setFirstName(author.getFirstName());
+                    updatedAuthor.setLastName(author.getLastName());
+                    return authorRepository.save(updatedAuthor);})
+                .orElseGet(() -> {return authorRepository.save(author);});
+        return ResponseEntity.ok().body(update);
+
     }
 }
